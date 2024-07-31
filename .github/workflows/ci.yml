@@ -1,0 +1,52 @@
+# Automatically build the project and run any configured tests for every push
+# and submitted pull request. This can help catch issues that only occur on
+# certain platforms or Java versions, and provides a first line of defence
+# against bad commits.
+
+name: build
+on:
+  push:
+
+permissions:
+  issues: write
+  checks: write
+  contents: write
+  pull-requests: write
+
+env:
+  TYPE: ${{ endsWith(github.ref_name, 'beta') && 'beta' || 'release' }}
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: "⬇️ Checkout"
+        uses: actions/checkout@v4
+
+      - name: "🔃 Use Latest Node.js"
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: "🧵 Install semantic release"
+        run: npm i --location=global semantic-release conventional-changelog-conventionalcommits @semantic-release/github @semantic-release/changelog @semantic-release/exec semantic-release-export-data
+
+      - name: "🔢 Determine version"
+        run: npx semantic-release --dry-run
+        id: get-next-version
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
+      - name: "ℹ️ Needs Release?"
+        run: echo "Needs release published? ${{ steps.get-next-version.outputs.new-release-published == 'true' }}"
+
+      - name: "Package and Publish"
+        if: ${{ steps.get-next-version.outputs.new-release-published == 'true'  }}
+        run: cd src && zip -r ../Clear_On_Sleep_1.21-${{ steps.get-next-version.outputs.new-release-version }}.zip *
+
+      - name: "🏗️ Build & Release to GitHub"
+        if: ${{ steps.get-next-version.outputs.new-release-published == 'true'  }}
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: npx semantic-release
+

@@ -1,0 +1,44 @@
+{
+  "branches": [
+    "+([0-9])?(.{+([0-9]),x}).x",
+    "main",
+    {
+      "name": "next",
+      "prerelease": true
+    },
+    {
+      "name": "beta",
+      "prerelease": true
+    },
+    {
+      "name": "alpha",
+      "prerelease": true
+    }
+  ],
+  "plugins": [
+    ["@semantic-release/commit-analyzer", {
+      "preset": "conventionalcommits"
+    }],
+    "semantic-release-export-data",
+    [
+      "@semantic-release/release-notes-generator",
+      {
+        "preset": "conventionalcommits"
+      }
+    ],
+    [
+      "@semantic-release/changelog"
+    ],
+    [
+      "@semantic-release/github",
+      {
+        "assets": [
+          {
+            "path": "Clear_On_Sleep*.zip",
+            "label": "Clear_On_Sleep_1.21-${nextRelease.gitTag}"
+          }
+        ]
+      }
+    ]
+  ]
+}
