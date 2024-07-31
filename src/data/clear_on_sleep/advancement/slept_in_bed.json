@@ -7,5 +7,4 @@
   "rewards": {
     "function": "clear_on_sleep:start_sleeping"
   }
-
 }

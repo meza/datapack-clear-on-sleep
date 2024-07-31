@@ -1,7 +1,12 @@
 {
-	"pack": {
-		"pack_format": 48,
-		"description": [{"text":"Clear Weather on Sleep","color":"gold"}],
+  "pack": {
+    "pack_format": 48,
+    "description": [
+      {
+        "text": "Clear Weather on Sleep",
+        "color": "gold"
+      }
+    ],
     "supported_formats": {
       "min_inclusive": 48
     }

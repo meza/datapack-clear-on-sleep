@@ -1,1 +1,4 @@
-{"replace":false,"values":["clear_on_sleep:load"]}
+{
+  "replace": false,
+  "values": ["clear_on_sleep:load"]
+}
