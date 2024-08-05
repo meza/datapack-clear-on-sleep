@@ -50,3 +50,19 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: npx semantic-release
 
+      - uses: Kir-Antipov/mc-publish@v3.3
+        name: "🚀 Publish on modrinth"
+        if: ${{ steps.get-next-version.outputs.new-release-published == 'true' }}
+        with:
+          version-type: ${{ env.TYPE }}
+          name: Clear On Sleep v${{ steps.get-next-version.outputs.new-release-version }}
+          version: ${{ steps.get-next-version.outputs.new-release-version }}
+          modrinth-id: ${{ vars.MODRINTH_ID }}
+          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+          changelog-file: CHANGELOG.*
+          files: Clear_On_Sleep_1.21-${{ steps.get-next-version.outputs.new-release-version }}.zip
+          loaders: |
+            datapack
+          game-versions: |
+            >=1.21
+          game-version-filter: releases
