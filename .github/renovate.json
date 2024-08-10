@@ -3,8 +3,5 @@
   "extends": [
     "github>stateshifters/renovate-common"
   ],
-  "dependencyDashboard": false,
-  "enabledManagers": [
-    "github-actions"
-  ]
+  "dependencyDashboard": false
 }
