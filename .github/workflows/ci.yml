@@ -29,7 +29,7 @@ jobs:
           node-version: 20
 
       - name: "🧵 Install semantic release"
-        run: npm i --location=global semantic-release conventional-changelog-conventionalcommits @semantic-release/github @semantic-release/changelog @semantic-release/exec semantic-release-export-data
+        run: npm i --location=global semantic-release conventional-changelog-conventionalcommits @semantic-release/github @semantic-release/changelog @semantic-release/exec semantic-release-export-data semantic-release-discord-notifier
 
       - name: "🔢 Determine version"
         run: npx semantic-release --dry-run
@@ -42,12 +42,13 @@ jobs:
 
       - name: "Package and Publish"
         if: ${{ steps.get-next-version.outputs.new-release-published == 'true'  }}
-        run: cd src && zip -r ../Clear_On_Sleep_1.21-${{ steps.get-next-version.outputs.new-release-version }}.zip *
+        run: cd src && zip -r ../Clear_On_Sleep-${{ steps.get-next-version.outputs.new-release-version }}.zip *
 
       - name: "🏗️ Build & Release to GitHub"
         if: ${{ steps.get-next-version.outputs.new-release-published == 'true'  }}
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         run: npx semantic-release
 
       - uses: Kir-Antipov/mc-publish@v3.3
@@ -60,7 +61,7 @@ jobs:
           modrinth-id: ${{ vars.MODRINTH_ID }}
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
           changelog-file: CHANGELOG.*
-          files: Clear_On_Sleep_1.21-${{ steps.get-next-version.outputs.new-release-version }}.zip
+          files: Clear_On_Sleep-${{ steps.get-next-version.outputs.new-release-version }}.zip
           loaders: |
             datapack
           game-versions: |
