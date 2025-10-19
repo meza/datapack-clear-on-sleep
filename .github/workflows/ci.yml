@@ -66,5 +66,5 @@ jobs:
           loaders: |
             datapack
           game-versions: |
-            >=1.21
+            >=1.21.9
           game-version-filter: releases

@@ -1,14 +1,12 @@
 {
   "pack": {
-    "pack_format": 71,
     "description": [
       {
         "text": "Clear Weather on Sleep",
         "color": "gold"
       }
     ],
-    "supported_formats": {
-      "min_inclusive": 71
-    }
+    min_format: 71,
+    max_format: 88
   }
 }
