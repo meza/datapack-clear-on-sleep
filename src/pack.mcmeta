@@ -1,12 +1,10 @@
 {
   "pack": {
-    "description": [
-      {
-        "text": "Clear Weather on Sleep",
-        "color": "gold"
-      }
-    ],
-    min_format: 82,
-    max_format: 101.1
+    "description": {
+      "text": "Clear Weather on Sleep",
+      "color": "gold"
+    },
+    "min_format": 82,
+    "max_format": 101.1
   }
 }
