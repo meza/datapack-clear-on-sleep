@@ -5,6 +5,15 @@
       "color": "gold"
     },
     "min_format": 82,
-    "max_format": 107.1
+    "max_format": 121
+  },
+  "overlays": {
+    "entries": [
+      {
+        "directory": "overlay_26_3",
+        "min_format": 121,
+        "max_format": 121
+      }
+    ]
   }
 }
